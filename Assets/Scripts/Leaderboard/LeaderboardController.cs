@@ -15,23 +15,23 @@ namespace LeaderboardSystem
         [SerializeField] private LeaderboardPool leaderboardPool;
 
         private float oldPos;
+        private float tempInt;
 
         private void Start()
         {
             SpawnLeaderboardElements();
-            float fraction = (float)(maxElements - startElementIndex) /maxElements;
+            tempInt = startElementIndex;
+            if(tempInt > 10)
+            {
+                tempInt += (tempInt - 10) / 10;
+            }
+
+            if (tempInt > maxElements) tempInt = maxElements;
+
+            float fraction = (float)(maxElements - tempInt) /maxElements;
             Debug.Log(fraction);
             leaderboardScrollRect.verticalNormalizedPosition = fraction;
             oldPos = leaderboardScrollRect.verticalNormalizedPosition;
-        }
-
-        private void Update()
-        {
-            if (leaderboardScrollRect.verticalNormalizedPosition != oldPos)
-            {
-                oldPos = leaderboardScrollRect.verticalNormalizedPosition;
-                Debug.Log(oldPos);
-            }
         }
 
         void SpawnLeaderboardElements()

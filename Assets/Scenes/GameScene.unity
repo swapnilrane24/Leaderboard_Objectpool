@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxElements: 100
-  startElementIndex: 90
+  startElementIndex: 78
   leaderboardElementPrefab: {fileID: 7941444884856130963, guid: e0302693f93a54919b5d45383165c623,
     type: 3}
   leaderboardContainer: {fileID: 531027577}
