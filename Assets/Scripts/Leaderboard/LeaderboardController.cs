@@ -15,11 +15,8 @@ namespace LeaderboardSystem
         [SerializeField] private ScrollRect leaderboardScrollRect;
         [SerializeField] private LeaderboardPool leaderboardPool;
 
-        private List<RectTransform> gameObjectList;
-
         private void Start()
         {
-            gameObjectList = new List<RectTransform>();
             SpawnLeaderboardElements();
             StartCoroutine(SetThePos());
         }
@@ -46,7 +43,6 @@ namespace LeaderboardSystem
                 element.transform.SetParent(leaderboardContainer.transform);
                 element.GetComponent<LeaderboardElement>().SetLeaderboardDetails("" + (i + 1),
                 "Swapnil " + i, "" + (maxElements - i));
-                gameObjectList.Add(element.GetComponent<RectTransform>());
             }
         }
     }
