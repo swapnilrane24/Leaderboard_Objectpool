@@ -1,44 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
-public class LeaderboardPool : MonoBehaviour
+namespace LeaderboardSystem
 {
-    private GameObject leaderboardElementPrefab;
-
-    private Stack<GameObject> inActiveLeaderboardElementList;
-
-    private void Awake()
+    public class LeaderboardPool : Objectpooling<LeaderboardPool>
     {
-        leaderboardElementPrefab = (GameObject)Resources.Load("LeaderboardElement");
-
-        inActiveLeaderboardElementList = new Stack<GameObject>();
-
-        for (int i = 0; i < 10; i++)
+        protected override void Awake()
         {
-            GameObject element = Instantiate(leaderboardElementPrefab, transform);
-            element.SetActive(false);
-            inActiveLeaderboardElementList.Push(element);
-        }
-    }
-
-    public GameObject GetElementFromPool()
-    {
-        GameObject element;
-        if (inActiveLeaderboardElementList.Count > 0)
-        {
-            return inActiveLeaderboardElementList.Pop();
+            poolObject = (GameObject)Resources.Load("LeaderboardElement");
+            Initialize();
         }
 
-        element = Instantiate(leaderboardElementPrefab, transform);
-        return element;
+        protected override void Initialize()
+        {
+            base.Initialize();
+        }
     }
-
-    public void SendElementToPool(GameObject element)
-    {
-        inActiveLeaderboardElementList.Push(element);
-        element.SetActive(false);
-    }
-
-
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace LeaderboardSystem
 {
@@ -13,22 +14,34 @@ namespace LeaderboardSystem
         [SerializeField] private ScrollRect leaderboardScrollRect;
         [SerializeField] private LeaderboardPool leaderboardPool;
 
+        private float oldPos;
+
         private void Start()
         {
             SpawnLeaderboardElements();
-            float fraction = (float)(maxElements - startElementIndex) / maxElements;
+            float fraction = (float)(maxElements - startElementIndex) /maxElements;
+            Debug.Log(fraction);
             leaderboardScrollRect.verticalNormalizedPosition = fraction;
+            oldPos = leaderboardScrollRect.verticalNormalizedPosition;
+        }
+
+        private void Update()
+        {
+            if (leaderboardScrollRect.verticalNormalizedPosition != oldPos)
+            {
+                oldPos = leaderboardScrollRect.verticalNormalizedPosition;
+                Debug.Log(oldPos);
+            }
         }
 
         void SpawnLeaderboardElements()
         {
             for (int i = 0; i < maxElements; i++)
             {
-
                 GameObject element = leaderboardPool.GetElementFromPool();
                 element.SetActive(true);
                 element.transform.SetParent(leaderboardContainer.transform);
-                element.GetComponent<LeaderboardElement>().SetLeaderboardDetails("" + i,
+                element.GetComponent<LeaderboardElement>().SetLeaderboardDetails("" + (i + 1),
                 "Swapnil " + i, "" + (maxElements - i));
             }
         }
